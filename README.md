@@ -1,6 +1,10 @@
 # BarMagnet
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 BarMagnet is a simple torrent remote controller for iOS 9 and above.
+
+This project will eventually be superseded by [Magnetar](https://github.com/Qata/Magnetar), at which point this project will be considered end of life.
 
 **BarMagnet features:**
 
@@ -14,6 +18,8 @@ BarMagnet is a simple torrent remote controller for iOS 9 and above.
 After downloading, cd to the root folder and run `git submodule update --init --recursive` to initialise all submodules used by this project and by the projects that this project uses (dizzying, isn't it?).
 
 You'll need a Mac running the latest Xcode to be able to build BarMagnet for your iOS device.
+
+Alternatively you can use one of the [pre-built binaries](https://github.com/Qata/BarMagnet/releases) after resigning it with [iOS App Signer](https://dantheman827.github.io/ios-app-signer/).
 
 ## Credits
 

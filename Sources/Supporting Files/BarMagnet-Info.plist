@@ -19,7 +19,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>Quarter.BarMagnet.torrent</string>
+				<string>public.torrent</string>
 			</array>
 		</dict>
 	</array>
@@ -38,7 +38,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.9.4</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -118,17 +118,25 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.item</string>
+				<string>com.bittorrent.torrent</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Torrent File</string>
+			<string>BitTorrent Document</string>
+			<key>UTTypeIconFile</key>
+			<string>BitTorrentDocument</string>
 			<key>UTTypeIdentifier</key>
-			<string>Quarter.BarMagnet.torrent</string>
+			<string>org.bittorrent.torrent</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<string>TORR</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>torrent</string>
 				</array>
+				<key>public.mime-type</key>
+				<string>application/x-bittorrent</string>
 			</dict>
 		</dict>
 	</array>

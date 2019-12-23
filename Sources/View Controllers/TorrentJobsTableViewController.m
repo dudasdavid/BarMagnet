@@ -130,7 +130,7 @@ enum ORDER { COMPLETED = 1,
 
 - (void)initialiseHeader {
     self.header = [UILabel.alloc initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, [self sizeForDevice])];
-    self.header.backgroundColor = [UIColor colorWithRed:0 green:0.9 blue:.2 alpha:.85];
+    self.header.backgroundColor = [UIColor colorWithRed:0 green:.9 blue:.4 alpha:1];
     self.header.textColor = [UIColor whiteColor];
     self.header.text = @"Attempting Connection";
     self.header.font = [UIFont fontWithName:@"Arial" size:self.sizeForDevice - 6];
@@ -168,44 +168,6 @@ enum ORDER { COMPLETED = 1,
 - (void)willDismissSearchController:(UISearchController *)searchController {
     self.shouldRefresh = YES;
     [self receiveUpdateTableNotification];
-}
-
-- (IBAction)addTorrentPopup:(id)sender {
-    UIAlertController *addTorrentAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [addTorrentAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [addTorrentAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        
-    }];
-    [addTorrentAlert addAction:[UIAlertAction actionWithTitle:@"Open URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *text = addTorrentAlert.textFields.firstObject.text;
-        if (text.length == 0) {
-            return;
-        }
-        NSString *magnet = @"magnet:";
-        if (text.length > magnet.length && [[text substringWithRange:NSMakeRange(0, magnet.length)] isEqual:magnet]) {
-            [[TorrentDelegate sharedInstance] handleMagnet:text];
-            [self.navigationController popViewControllerAnimated:YES];
-        } else if ([text rangeOfString:@".torrent"].location != NSNotFound) {
-            [[TorrentDelegate sharedInstance] handleTorrentFile:text];
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            if ([text rangeOfString:@"https://"].location != NSNotFound || [text rangeOfString:@"http://"].location != NSNotFound) {
-                SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithAddress:text];
-                [self.navigationController presentViewController:webViewController animated:YES completion:nil];
-            } else {
-                SVModalWebViewController *webViewController = [[SVModalWebViewController alloc]
-                                                               initWithAddress:[@"http://" stringByAppendingString:[text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]]];
-                [self.navigationController presentViewController:webViewController animated:YES completion:nil];
-            }
-        }
-    }]];
-    [addTorrentAlert addAction:[UIAlertAction actionWithTitle:@"Search via Queries" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self performSegueWithIdentifier:@"query" sender:nil];
-    }]];
-    [addTorrentAlert addAction:[UIAlertAction actionWithTitle:@"Scan QR Core" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self performSegueWithIdentifier:@"scan" sender:nil];
-    }]];
-    [self presentViewController:addTorrentAlert animated:YES completion:nil];
 }
 
 - (IBAction)showListOfControlOptions:(id)sender {
@@ -474,7 +436,7 @@ enum ORDER { COMPLETED = 1,
         resumeOrPauseAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Resume" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [TorrentDelegate.sharedInstance.currentlySelectedClient resumeTorrent:currentJob[@"hash"]];
         }];
-        resumeOrPauseAction.backgroundColor = [UIColor greenColor];
+        resumeOrPauseAction.backgroundColor = [UIColor colorWithRed:0 green:.9 blue:.4 alpha:1];
     } else {
         resumeOrPauseAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Pause" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [TorrentDelegate.sharedInstance.currentlySelectedClient pauseTorrent:currentJob[@"hash"]];
@@ -516,7 +478,7 @@ enum ORDER { COMPLETED = 1,
     cell.downloadSpeed.text = [NSString stringWithFormat:@"%@ ↓", currentJob[@"downloadSpeed"]];
 
     if ([currentJob[@"status"] isEqualToString:@"Seeding"]) {
-        cell.percentBar.progressTintColor = [UIColor colorWithRed:0 green:1 blue:.4 alpha:1];
+        cell.percentBar.progressTintColor = [UIColor colorWithRed:0 green:.9 blue:.4 alpha:1];
     } else if ([currentJob[@"status"] isEqualToString:@"Downloading"]) {
         cell.percentBar.progressTintColor = [UIColor colorWithRed:0 green:.478 blue:1 alpha:1];
     } else {
